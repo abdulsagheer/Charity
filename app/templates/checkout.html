@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} Donate  {% endblock  %}
+    
+{% block content %}
+<div style="margin:200px;border:1px solid gray;border-radius:10px">
+<h1 style="text-align: center;">Donate here</h1>
+<hr>
+<div style="margin-left:100px;align-items:center" id="paypal-button-container"></div>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=AejU2nGBLE915jlYnuwjUd8VnEHGq5QSqGYfxN9ua0NEB2uGHX8ZSXbW9VbbY9YinTa1reQwhVJYka67&currency=USD"></script>
+<script>
+    import('sweetalert');
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        style: {
+            color:  'blue',
+            shape:  'rect',
+            label:  'pay',
+            height: 40
+        },
+
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: 10
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show a success message to the buyer
+                swal("Payment successfull!!", "Your payment is successfull", "success")
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+{% endblock content %}

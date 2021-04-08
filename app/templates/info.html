@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Donator Info{% endblock  %}
+{% block content %}
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        border-radius: 5px; /* 5px rounded corners */
+      }
+</style>
+<form method="POST" >
+    {% csrf_token %}
+    <div class="card" style="padding:20px;margin:100px;border:1px solid gray;border-radius:10px;">
+        {{form}}
+        <input type="submit" class="btn" href="{% url 'donate' %}" value="Donate" style="margin-left:15px;color: white;background-color:orange;">
+    </div>
+    
+</form>
+{% endblock  %}
